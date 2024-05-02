@@ -1,7 +1,7 @@
 export function isVerifyCodeExpire(
-    verifyCodeExpiry:number
+    verifyCodeExpiry:any
 ):boolean{
-    if(Date.now()<verifyCodeExpiry)
-        return false
-    return true
+    if(verifyCodeExpiry>Date.now())
+        return true
+    return false
 }
