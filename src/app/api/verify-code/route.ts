@@ -9,8 +9,8 @@ export async function POST(request: Request) {
   await dbConnect();
   try {
     const { username, code } = await request.json();
-    const result = verifyCodeSchema.safeParse({code});
     
+    const result = verifyCodeSchema.safeParse({code});
     if (!result.success) {
       const schmaErrors=result.error.format().code?._errors || []
       
@@ -26,8 +26,20 @@ export async function POST(request: Request) {
     const user = await UserModel.findOne({username});
     const isCodeTrue = user?.verifyCode === result?.data?.code;
     const isCodeNotExpired = isVerifyCodeExpire(user?.verifyCodeExpiry);
-    
-    
+    if(!user){
+      return Response.json({
+        success:false,
+        message:'User not found'
+      })
+    }
+
+    if(user?.isVerified==true)
+      {
+        return Response.json({
+          success:true,
+          message:'User already Verified'
+        })
+      }
     if (isCodeTrue && isCodeNotExpired) {
       user.isVerified = true;
       await user.save();
