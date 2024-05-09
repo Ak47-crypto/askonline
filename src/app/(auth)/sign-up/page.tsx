@@ -19,6 +19,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import Link from "next/link";
 export default function page() {
     const [username, setUsername] = useState('');
     const [usernameMessage, setUsernameMessage] = useState('');
@@ -27,7 +28,7 @@ export default function page() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const debounced = useDebounceCallback(setUsername, 500)
     const { toast } = useToast();
-    const router=useRouter()
+    const router = useRouter()
     const formSchema = signUpSchema;
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -78,7 +79,7 @@ export default function page() {
                 title: "Message",
                 description: data2.message,
             })
-            if(data2.success==true)
+            if (data2.success == true)
                 router.replace(`/verify/${username}`)
             console.log(data2)
         } catch (error) {
@@ -93,7 +94,7 @@ export default function page() {
 
     }
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex justify-center items-center min-h-screen bg-gray-800">
             <div className="w-full max-w-md p-8 space-y-8 bg-white
 rounded-lg shadow-md m-2">
                 <div className="text-center">
@@ -157,6 +158,14 @@ rounded-lg shadow-md m-2">
                         </Button>
                     </form>
                 </Form>
+                <div className="text-center mt-4">
+                    <p>
+                        Already a member?{' '}
+                        <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+                            Sign in
+                        </Link>
+                    </p>
+                </div>
             </div>
         </div>
     )
