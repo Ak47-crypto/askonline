@@ -13,9 +13,9 @@ export async function sendVerificatinEmail(
     try {
         // console.log(email,username,verifyCode)
          const res=await resend.emails.send({
-            from: 'onboarding@resend.dev',
+            from: 'verification@askonline.fun',
             to: email,
-            subject: 'Your truefeedback verification code',
+            subject: 'Your askonline verification code',
             react: VerificationEmail({username,otp:verifyCode})
           });
           console.log(res);

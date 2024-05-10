@@ -19,6 +19,9 @@ export async function middleware(request: NextRequest) {
     console.log(token, "in if");
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
+  if(!token && (url.pathname.startsWith("/dashboard"))){
+    return NextResponse.redirect(new URL("/sign-in",request.url))
+  }
   console.log(token, "not in if");
   return NextResponse.next();
   // return NextResponse.redirect(new URL('/', request.url))

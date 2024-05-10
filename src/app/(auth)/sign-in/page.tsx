@@ -80,9 +80,9 @@ rounded-lg shadow-md m-2">
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email or Username</FormLabel>
-                  <FormControl>
+                  <FormControl >
                     <Input placeholder="email/username" type="text" {...field}
-
+                      required
                     />
                   </FormControl>
 
@@ -97,7 +97,7 @@ rounded-lg shadow-md m-2">
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="password" type="password" {...field} />
+                    <Input placeholder="password" type="password" {...field} required />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
