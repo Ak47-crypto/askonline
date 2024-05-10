@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 export default function Verify() {
+    
     const [isSubmitting, setIsSubmitting] = useState(false)
     // const [username,setUsername]=useState('')
     const form = useForm<z.infer<typeof verifyCodeSchema>>({
