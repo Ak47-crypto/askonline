@@ -28,7 +28,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams } from 'next/navigation'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
-export default function page() {
+export default function UserBoard() {
     const params = useParams()
     const username = params.username
     const [isLoading, setIsLoading] = useState(false)

@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-export default function page() {
+export default function SignIn() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const router = useRouter()
