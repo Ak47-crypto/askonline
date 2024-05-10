@@ -39,15 +39,16 @@ export default function UserBoard() {
         }
     })
     const watchInput = form.watch('content')
-    const MessageArray = ["What's one small thing that always brings a smile to your face?", "Share a quote that inspires you daily.",
-        "What's your favorite childhood memory?",
-        "If you could have dinner with anyone, living or dead, who would it be and why?",
-        "What's the last song that got stuck in your head?",
-        "What's a skill you've always wanted to learn but haven't yet?",
-        "Describe your perfect day in just three words.",
-        "What's the most interesting thing you've learned recently?",
-        "Share a random act of kindness you've experienced or witnessed.",
-        "What's one thing you're grateful for today?"]
+    const MessageArray = ["Favorite movie genre?",
+    "Last vacation spot?",
+    "Dream job?",
+    "Go-to comfort food?",
+    "Morning routine?",
+    "Favorite hobby?",
+    "Best childhood memory?",
+    "Next travel destination?",
+    "Recent Netflix binge?",
+    "Favorite season?"]
     const handleMessageOnTextarea=(msg:string)=>{
         form.setValue('content',msg)
         toast({
