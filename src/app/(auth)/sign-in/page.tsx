@@ -42,35 +42,52 @@ export default function SignIn() {
         password: data.password
       })
       console.log(result);
-      
-      if(result?.error){
-      if(result?.error === 'CredentialsSignin')
-        toast({
-          title:'Message',
-          description:'Invalid username/password'
-      })
-      else
-        toast({
-          title:'Message',
-          description:result?.error,
-          variant:'destructive'
-        })
+
+      if (result?.error) {
+        if (result?.error === 'CredentialsSignin'){
+          toast({
+            title: 'Message',
+            description: 'Invalid username/password'
+          })
+          form.setValue('password','')
+          form.setValue('identifier','')
+        }
+        else {
+          toast({
+            title: 'Message',
+            description: result?.error,
+            variant: 'destructive'
+          })
+
+          form.setValue('password', '')
+          form.setValue('identifier', '')
+        }
       }
-      if(result?.url){
+      
+      if (result?.url) {
+        toast({
+          title: 'User Logged In',
+          description: 'logged in successfully',
+          variant: 'default'
+        })
         router.replace('dashboard')
       }
-      setIsSubmitting(false)
+      
     } catch (error) {
-      console.log(error,'i am error')
+      console.log(error, 'i am error')
+    }finally{
+      setIsSubmitting(false)
     }
-    
+
   }
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-800">
       <div className="w-full max-w-md p-8 space-y-8 bg-white
-rounded-lg shadow-md m-2">
+rounded-lg shadow-md m-2 mb-20">
+
+
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Welcome back to AskOnline</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight lg:text-5xl mb-6">Welcome back to AskOnline</h1>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

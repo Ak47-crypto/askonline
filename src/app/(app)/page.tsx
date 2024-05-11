@@ -55,7 +55,7 @@ export default function Home() {
         {/* Carousel for Messages */}
         <Carousel
           plugins={[Autoplay({ delay: 2000 })]}
-          className="w-full max-w-lg md:max-w-xl"
+          className="w-full max-w-lg md:max-w-xl ml-5"
         >
           <CarouselContent>
             {messages.map((message, index) => (

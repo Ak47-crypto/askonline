@@ -79,7 +79,13 @@ export default function SignUp() {
                 title: "Message",
                 description: data2.message,
             })
-            if (data2.success == true)
+            if(!data2.success){
+                form.setValue('password','')
+                form.setValue('email','')
+                
+                
+            }
+            if (data2.success)
                 router.replace(`/verify/${username}`)
             console.log(data2)
         } catch (error) {
@@ -95,8 +101,8 @@ export default function SignUp() {
     }
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-800">
-            <div className="w-full max-w-md p-8 space-y-8 bg-white
-rounded-lg shadow-md m-2">
+            <div className="w-full max-w-md p-8 space-y-6 bg-white
+rounded-lg shadow-md m-2 mb-12">
                 <div className="text-center">
                     <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join our journey</h1>
                 </div>
@@ -153,7 +159,7 @@ rounded-lg shadow-md m-2">
                             {
                                 isSubmitting ? <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please wait
-                                </> : 'SignUp'
+                                </> : 'Sign Up'
                             }
                         </Button>
                     </form>
