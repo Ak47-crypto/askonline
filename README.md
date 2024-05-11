@@ -21,4 +21,4 @@ Run the development server
 
 
 ## 🔗 Links
-[askonline](https://askonline.xyz)
+[askonline](https://askonline.fun)
