@@ -44,13 +44,13 @@ export default function SignIn() {
       console.log(result);
 
       if (result?.error) {
-        if (result?.error === 'CredentialsSignin'){
+        if (result?.error === 'CredentialsSignin') {
           toast({
             title: 'Message',
             description: 'Invalid username/password'
           })
-          form.setValue('password','')
-          form.setValue('identifier','')
+          form.setValue('password', '')
+          form.setValue('identifier', '')
         }
         else {
           toast({
@@ -63,7 +63,7 @@ export default function SignIn() {
           form.setValue('identifier', '')
         }
       }
-      
+
       if (result?.url) {
         toast({
           title: 'User Logged In',
@@ -72,10 +72,10 @@ export default function SignIn() {
         })
         router.replace('dashboard')
       }
-      
+
     } catch (error) {
       console.log(error, 'i am error')
-    }finally{
+    } finally {
       setIsSubmitting(false)
     }
 
@@ -132,12 +132,17 @@ rounded-lg shadow-md m-2 mb-20">
           </form>
         </Form>
         <div className="text-center mt-4">
-          <p>
+          <p className="mb-2">
             Not a member yet?{' '}
             <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
               Sign up
             </Link>
           </p>
+          <p className="text-sm" >
+            Forgot password ?{' '}
+            <Link href="/password-reset" className="text-blue-600 hover:text-blue-800">
+              Reset now  
+          </Link></p>
         </div>
       </div>
     </div>

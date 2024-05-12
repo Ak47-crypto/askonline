@@ -27,6 +27,8 @@ export interface User extends Document {
   verifyCode:string;
   verifyCodeExpiry:number
   isAcceptingMessage:boolean
+  passwordCode:string
+  passwordCodeExpiry:number
   messages:Message[]
 }
 
@@ -63,6 +65,12 @@ const UserSchema: Schema<User> = new Schema({
   verifyCodeExpiry: {
     type: Number,
     require: [true, "verify code expiry is required"],
+  },
+  passwordCode:{
+    type:String
+  },
+  passwordCodeExpiry:{
+    type:Number
   },
   messages: [MessageSchema]
 });
