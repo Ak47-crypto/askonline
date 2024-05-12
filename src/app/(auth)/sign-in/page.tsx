@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from 'zod'
 import { signInSchema } from "@/schemas/signInSchema";
-import { Loader2 } from 'lucide-react';
+import { Loader2, KeyRound } from 'lucide-react';
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation";
@@ -96,7 +96,7 @@ rounded-lg shadow-md m-2 mb-20">
               name="identifier"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email or Username</FormLabel>
+                  <FormLabel>Username or email address</FormLabel>
                   <FormControl >
                     <Input placeholder="email/username" type="text" {...field}
                       required
@@ -112,7 +112,14 @@ rounded-lg shadow-md m-2 mb-20">
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <div className="flex justify-between">
+                    <FormLabel className="mt-1">Password</FormLabel>
+                    <p className="inline ">
+                      <Link href="/password-reset" className="text-blue-600 hover:text-blue-800 text-sm">
+                        Forgot Password?
+                      </Link>
+                    </p>
+                  </div>
                   <FormControl>
                     <Input placeholder="password" type="password" {...field} required />
                   </FormControl>
@@ -138,11 +145,11 @@ rounded-lg shadow-md m-2 mb-20">
               Sign up
             </Link>
           </p>
-          <p className="text-sm" >
-            Forgot password ?{' '}
+          {/* <p className="text-sm" >
+            <KeyRound className="inline" /> Forgot password ?{' '}
             <Link href="/password-reset" className="text-blue-600 hover:text-blue-800">
-              Reset now  
-          </Link></p>
+              Reset now
+            </Link></p> */}
         </div>
       </div>
     </div>
