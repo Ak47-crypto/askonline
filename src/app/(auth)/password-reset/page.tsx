@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import ReCAPTCHA from "react-google-recaptcha";
 import {
     Form,
     FormControl,
@@ -17,12 +18,13 @@ import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
 import { Loader2 } from 'lucide-react'
 const emailSchema = z.object({
-    email: z.string().email({message:"Invalid email address"})
+    email: z.string().email({ message: "Invalid email address" })
 })
 export default function PasswordReset() {
-    const [isSubmitting,setIsSubmitting]=useState(false)
-    const router=useRouter();
-    const {toast}=useToast();
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+    const [captcha, setCaptcha] = useState<string | null>()
+    const router = useRouter();
+    const { toast } = useToast();
     const form = useForm<z.infer<typeof emailSchema>>({
         resolver: zodResolver(emailSchema),
         defaultValues: {
@@ -32,38 +34,47 @@ export default function PasswordReset() {
     const onSubmit = async (data: z.infer<typeof emailSchema>) => {
         setIsSubmitting(true)
         try {
-            const response = await fetch('/api/send-password-otp',{
-                method:"POST",
-                headers:{
-                    "content-type":"application/json"
-                },
-                body:JSON.stringify(data)
-            })
-            const data2=await response.json();
-            console.log(data2)
-            if(data2.success==true){
+            if (!captcha) {
                 toast({
-                    title:"Message",
-                    description:data2.message,
-                    variant:"default"
+                    title: "reCaptcha failed",
+                    description: 'please re-verify',
+                    variant: 'destructive'
                 })
-                const {username}=data2;
-                router.replace(`/password-code-verify/${username}?validRedirection=true`)
-                // router.push()
             }
-            else
+            else {
+                const response = await fetch('/api/send-password-otp', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                const data2 = await response.json();
+                console.log(data2)
+                if (data2.success == true) {
+                    toast({
+                        title: "Message",
+                        description: data2.message,
+                        variant: "default"
+                    })
+                    const { username } = data2;
+                    router.replace(`/password-code-verify/${username}?validRedirection=true`)
+                    // router.push()
+                }
+                else
+                    toast({
+                        title: "Message",
+                        description: data2.message,
+                        variant: "destructive"
+                    })
+            }
+        } catch (error: any) {
             toast({
-                title:"Message",
-                description:data2.message,
-                variant:"destructive"
+                title: "Message",
+                description: "Some error occured",
+                variant: "destructive"
             })
-        } catch (error:any) {
-            toast({
-                title:"Message",
-                description:"Some error occured",
-                variant:"destructive"
-            })
-        }finally{
+        } finally {
             setIsSubmitting(false)
         }
     }
@@ -87,23 +98,33 @@ rounded-lg shadow-md m-2 mb-20">
                                             <Input placeholder="email" type="text" {...field}
                                                 required
                                             />
+
                                         </FormControl>
 
-                                        <FormMessage/>
+                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
+                            <div className='flex justify-center'>
+                                <ReCAPTCHA
+                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                                    onChange={setCaptcha}
+
+                                />
+                            </div>
                             <Button type="submit" variant={'default'} disabled={isSubmitting}>
-                            {
-                                isSubmitting ? <>
-                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please wait
-                                </> : 'Submit'
-                            }
-                        </Button>
+                                {
+                                    isSubmitting ? <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please wait
+                                    </> : 'Submit'
+                                }
+                            </Button>
                         </form>
                     </Form>
                 </div>
             </div>
+
+
         </>
     )
 }
