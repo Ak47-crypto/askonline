@@ -13,7 +13,7 @@ export async function sendVerificatinEmail(
     try {
         // console.log(email,username,verifyCode)
          const res=await resend.emails.send({
-            from: 'verification@askonline.fun',
+            from: 'verification@askonline.space',
             to: email,
             subject: 'Your askonline verification code',
             react: VerificationEmail({username,otp:verifyCode})
